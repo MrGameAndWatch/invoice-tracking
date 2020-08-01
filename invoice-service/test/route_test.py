@@ -5,18 +5,16 @@ import msgpack
 import falcon
 from falcon import testing
 
+from src.model.invoices_db import invoices
+
 from src.main import api
 
 class RoutesTest(unittest.TestCase):
 
     def test_getInvoices(self):
-        invoices = [{
-            'employee': '1',
-            'description': 'Lunch',
-            'amount': 30.00
-        }]
+        exptected_invoices = list(map(lambda invoice: invoice.to_dict(), invoices))
         client = testing.TestClient(api)
         response = client.simulate_get("/invoices")
         result_invoices = response.json
-        self.assertEqual(result_invoices, invoices)
+        self.assertEqual(result_invoices, exptected_invoices)
         self.assertEqual(response.status, falcon.HTTP_OK)
