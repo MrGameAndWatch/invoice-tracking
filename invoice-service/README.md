@@ -1,0 +1,1 @@
+Start the server from the `invoice-service/` director using `gunicorn src.main:api`
