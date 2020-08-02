@@ -22,7 +22,7 @@ class InvoiceRepositoryTest(unittest.TestCase):
         self.assertEqual(collections, ['invoices'])
         self.assertEqual(inserted_id, str(invoice.id))
 
-    def test_saveInvoices(self):
+    def test_saveAllInvoices(self):
         inserted_ids: List[str] = self.invoice_repository.save_all(invoices)
         expected_ids: List[str] = list(map(lambda invoice: str(invoice.id), invoices))
         self.assertEqual(inserted_ids, expected_ids)
@@ -36,3 +36,16 @@ class InvoiceRepositoryTest(unittest.TestCase):
             list(map(lambda invoice: invoice.to_dict(), found_invoices)),
             list(map(lambda invoice: invoice.to_dict(), invoices))
         )
+
+    def test_findKnownInvoiceById(self):
+        self.invoice_repository.save_all(invoices)
+        exptected_invoice: Invoice = invoices.__getitem__(0)
+        search_id = str(exptected_invoice.id)
+        found_invoice: Invoice = self.invoice_repository.find_by_id(search_id)
+        self.assertIs(type(found_invoice), Invoice)
+        self.assertEqual(found_invoice.to_dict(), exptected_invoice.to_dict())
+
+    def test_findUnknownInvoiceById(self):
+        self.invoice_repository.save_all(invoices)
+        found_invoice: Invoice = self.invoice_repository.find_by_id("unknown-id")
+        self.assertEqual(found_invoice, None)

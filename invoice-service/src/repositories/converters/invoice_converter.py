@@ -11,4 +11,4 @@ def convert(raw) -> Invoice:
         .description(raw['description']) \
         .amount(float(raw['amount'])) \
         .timestamp(datetime.strptime(raw['timestamp'], time_format)) \
-        .build()
+        .build() if raw is not None else None
