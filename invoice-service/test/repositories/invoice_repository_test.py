@@ -1,3 +1,5 @@
+from typing import List
+
 import unittest
 
 import mongomock
@@ -19,3 +21,8 @@ class InvoiceRepositoryTest(unittest.TestCase):
         collections = self.db.list_collection_names()
         self.assertEqual(collections, ['invoices'])
         self.assertEqual(inserted_id, str(invoice.id))
+
+    def test_saveInvoices(self):
+        inserted_ids: List[str] = self.invoice_repository.save_all(invoices)
+        expected_ids: List[str] = list(map(lambda invoice: str(invoice.id), invoices))
+        self.assertEqual(inserted_ids, expected_ids)
