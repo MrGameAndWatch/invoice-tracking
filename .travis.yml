@@ -1,0 +1,15 @@
+services:
+  - docker
+
+language: python
+python:
+  - 3.8
+
+install:
+  - cd invoice-service/
+  - pip install -r requirements.txt
+
+jobs:
+  include:
+    - stage: tests
+      script: python -m unittest discover -s "." -p "*_test.py"

@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  invoice-service:
+    build:
+      context: ./invoice-service
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongo 
+
+  mongo:
+    image: 'mongo:4.2-bionic'
+    deploy:
+      restart_policy:
+        condition: always
+    ports:
+      - '27017:27017'
