@@ -36,5 +36,5 @@ def create_context(db_client: MongoClient):
     }
     return context
 
-context = create_context(MongoClient('localhost', 27017))
+context = create_context(MongoClient('mongo', 27017))
 api = context.get('api')
