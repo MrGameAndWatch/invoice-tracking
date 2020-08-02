@@ -5,7 +5,7 @@ import msgpack
 import falcon
 from falcon import testing
 
-from src.model.invoices_db import invoices
+from test.invoice_data import invoices
 
 from src.main import api
 

@@ -3,7 +3,7 @@ import json
 import falcon
 
 from src.model.invoice import Invoice
-from src.model.invoices_db import invoices
+from test.invoice_data import invoices
 
 class InvoiceResource:
 
