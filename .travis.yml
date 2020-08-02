@@ -12,6 +12,4 @@ install:
 jobs:
   include:
     - stage: tests
-    name: "Unit Tests"
-    script:
-      - python -m unittest discover -s "." -p "*_test.py"
+      script: python -m unittest discover -s "." -p "*_test.py"
