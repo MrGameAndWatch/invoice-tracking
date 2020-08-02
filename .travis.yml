@@ -17,6 +17,3 @@ jobs:
     name: "Unit Tests"
     script:
       - python -m unittest discover -s "." -p "*_test.py"
-
-after_success:
-  - sh .travis/deploy_dockerhub.sh
