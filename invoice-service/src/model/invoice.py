@@ -31,14 +31,12 @@ class Invoice:
 
     def to_dict(self) -> Dict:
         return {
-            'id': str(self.id),
+            '_id': str(self.id),
             'user_id': str(self.user_id),
             'description': self.description,
             'amount': self.amount,
             'timestamp': self._timestamp.strftime('%d/%m/%Y, %H:%M:%S')
         }
-
-
 
 class InvoiceBuilder:
 
