@@ -4,7 +4,8 @@ import mongomock
 import falcon
 from falcon import testing
 
-from test.invoice_data import invoices
+from src.util import utils
+from test.invoice_data import invoices, invoices_for_one_user
 
 from src.main import create_context
 
@@ -20,7 +21,7 @@ class RoutesTest(unittest.TestCase):
         self.client = testing.TestClient(self.context.get('api'))
 
     def test_getInvoices(self):
-        exptected_invoices = list(map(lambda invoice: invoice.to_dict(), invoices))
+        exptected_invoices = utils.convert_invoices_to_dicts(invoices)
         response = self.client.simulate_get("/invoices")
         result_invoices = response.json
         self.assertEqual(result_invoices, exptected_invoices)
@@ -39,3 +40,14 @@ class RoutesTest(unittest.TestCase):
         result_invoice = response.json
         self.assertEqual(result_invoice, {})
         self.assertEqual(response.status, falcon.HTTP_NOT_FOUND)
+
+    def test_getInvoicesByUserId(self):
+        self.context \
+            .get('repositories') \
+            .get('InvoiceRepository') \
+            .save_all(invoices_for_one_user)
+        expected_invoices = utils.convert_invoices_to_dicts(invoices_for_one_user)
+        user_id = invoices_for_one_user.__getitem__(0).user_id
+        response = self.client.simulate_get(f'/users/{user_id}/invoices')
+        result_invoices = response.json
+        self.assertEqual(result_invoices, expected_invoices)

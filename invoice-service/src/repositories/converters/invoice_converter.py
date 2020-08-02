@@ -7,7 +7,7 @@ from src.model.invoice import Invoice, InvoiceBuilder
 def convert(raw) -> Invoice:
     return InvoiceBuilder() \
         .id(UUID(raw['_id'])) \
-        .user_id(raw['user_id']) \
+        .user_id(raw['userId']) \
         .description(raw['description']) \
         .amount(float(raw['amount'])) \
         .timestamp(datetime.strptime(raw['timestamp'], time_format)) \

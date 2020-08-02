@@ -21,8 +21,15 @@ class InvoiceRepository:
 
     def find_all(self) -> List[Invoice]:
         found_invoices = self.collection.find()
-        return list(map(lambda raw_invoice: invoice_converter.convert(raw_invoice), found_invoices))
+        return self._get_converted(found_invoices)
 
     def find_by_id(self, id: str) -> Invoice:
         found_raw_invoice = self.collection.find_one({"_id": id})
         return invoice_converter.convert(found_raw_invoice)
+
+    def find_by_userId(self, userId: str) -> List[Invoice]:
+        found_invoices = self.collection.find({"userId": userId})
+        return self._get_converted(found_invoices)
+
+    def _get_converted(self, raw_invoices: List) -> List[Invoice]:
+        return list(map(lambda raw_invoice: invoice_converter.convert(raw_invoice), raw_invoices))

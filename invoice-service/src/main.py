@@ -21,6 +21,7 @@ def create_context(db_client: MongoClient):
     # Routes
     api.add_route('/invoices', invoices)
     api.add_route('/invoices/{invoice_id}', invoices, suffix='single')
+    api.add_route('/users/{user_id}/invoices', invoices, suffix='user_id')
 
     context = {
         'databaseClient': db,
