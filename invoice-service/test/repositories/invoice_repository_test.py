@@ -26,3 +26,13 @@ class InvoiceRepositoryTest(unittest.TestCase):
         inserted_ids: List[str] = self.invoice_repository.save_all(invoices)
         expected_ids: List[str] = list(map(lambda invoice: str(invoice.id), invoices))
         self.assertEqual(inserted_ids, expected_ids)
+
+    def test_findAll(self):
+        self.invoice_repository.save_all(invoices)
+        found_invoices: List[Invoice] = self.invoice_repository.find_all()
+        for invoice in found_invoices:
+            self.assertIs(type(invoice), Invoice)
+        self.assertEqual(
+            list(map(lambda invoice: invoice.to_dict(), found_invoices)),
+            list(map(lambda invoice: invoice.to_dict(), invoices))
+        )
