@@ -5,12 +5,13 @@
         - 3.8
       before_script:
         - cd invoice-service/
-        - pip install -r requirements.txt
       script:
+        - pip install -r requirements.txt
         - python -m unittest discover -s "." -p "*_test.py"
     - language: node.js
       node_js: "12.2.0"
       before_script:
         - cd employee-fronted/
+      script:
         - yarn install
         - yarn test:unit
