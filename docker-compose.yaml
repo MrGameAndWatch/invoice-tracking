@@ -1,5 +1,14 @@
 version: '3.8'
 services:
+  employee-frontend:
+    build:
+      context: employee-frontend
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8080'
+    depends_on:
+      - invoice-service
+
   invoice-service:
     build:
       context: ./invoice-service
