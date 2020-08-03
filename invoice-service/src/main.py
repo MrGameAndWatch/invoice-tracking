@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import falcon
 
 from src.repositories.invoice_repository import InvoiceRepository
+from src.middleware.cors import CORSComponent
 
 from src.resources.invoice import InvoiceResource
 
@@ -13,7 +14,7 @@ def create_context(db_client: MongoClient):
     invoice_repository = InvoiceRepository(db.invoices)
 
     # API and middleware
-    api = falcon.API()
+    api = falcon.API(middleware=[CORSComponent()])
 
     # Resources
     invoices = InvoiceResource(invoice_repository)

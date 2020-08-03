@@ -1,15 +1,18 @@
-services:
-  - docker
-
-language: python
-python:
-  - 3.8
-
-install:
-  - cd invoice-service/
-  - pip install -r requirements.txt
-
-jobs:
+matrix:
   include:
-    - stage: tests
-      script: python -m unittest discover -s "." -p "*_test.py"
+    -
+      language: python
+      python: 3.8
+      before_script:
+        - cd invoice-service/
+      script:
+        - pip install -r requirements.txt
+        - python -m unittest discover -s "." -p "*_test.py"
+    - 
+      language: node_js
+      node_js: 12.0
+      before_script:
+        - cd employee-frontend/
+      script:
+        - yarn install
+        - yarn test:unit
