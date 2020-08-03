@@ -1,5 +1,6 @@
 import { extend } from 'vee-validate'
 import { required } from 'vee-validate/dist/rules'
+import { isValidMoneyDecimal, isValidUserId } from './validationFunctions.js'
 
 extend('required', {
   ...required,
@@ -8,8 +9,7 @@ extend('required', {
 
 extend('is_money_decimal', {
     validate: (value) => {
-        const regexp = /^\d+(\.\d{1,2})?$/
-        return regexp.test(value)
+        return isValidMoneyDecimal(value)
     },
     message: 'The input must be a monetary amount.'
 })
@@ -23,8 +23,7 @@ extend('is_positive_monetary_amount', {
 
 extend('valid_user_id', {
     validate: (value) => {
-        const regexp = /^[A-Za-z]*$/
-        return regexp.test(value)
+        return isValidUserId(value)
     },
     message: 'The input must be a valid user id (any number of capital and lower case letters without spaces)'
 })
