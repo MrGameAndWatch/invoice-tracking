@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <h1>Add Invoice</h1>
-
     <invoice-form />
   </div>
 </template>
