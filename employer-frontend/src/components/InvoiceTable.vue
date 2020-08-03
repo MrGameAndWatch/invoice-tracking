@@ -10,13 +10,20 @@
     <template v-if="loading">
       <b-loading :is-full-page="true" :active.sync="loading" :can-cancel="false" />
     </template>
+
+    <InvoiceSummarizer v-bind:invoices="invoices" />
   </section>
 </template>
 
 <script>
 import axios from 'axios';
+import InvoiceSummarizer from './InvoiceSummarizer.vue'
+
 export default {
   name: 'InvoiceTable',
+  components: {
+    InvoiceSummarizer
+  },
   data() {
     return {
       loading: false,
@@ -28,7 +35,7 @@ export default {
         },
         {
           field: 'amount',
-          label: 'Amount'
+          label: 'Amount in €'
         },
         {
           field: 'timestamp',
@@ -66,8 +73,7 @@ export default {
 
 <style scoped>
 .table-container {
-  margin-top: 50px;
-  max-width: 600px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
