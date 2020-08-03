@@ -16,3 +16,11 @@ matrix:
       script:
         - yarn install
         - yarn test:unit
+    -
+      language: node_js
+      node_js: 12.0
+      before_script:
+        - cd employer-frontend/
+      script:
+        - yarn install
+        - yarn test:unit
