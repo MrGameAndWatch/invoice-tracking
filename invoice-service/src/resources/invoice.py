@@ -77,17 +77,3 @@ class InvoiceResource:
             ensure_ascii=False
         )
         resp.status = falcon.HTTP_CREATED
-
-    # def on_post(self, req, resp):
-    #     data = parser.parse(args, req, location='json')
-    #     invoice = InvoiceBuilder() \
-    #         .user_id("User") \
-    #         .description(data.get('description')) \
-    #         .amount(data.get('amount')) \
-    #         .build()
-    #     invoice_id = self.invoice_repository.save(invoice)
-    #     resp.body = json.dumps(
-    #         { 'invoiceId': invoice_id },
-    #         ensure_ascii=False
-    #     )
-    #     resp.status = falcon.HTTP_CREATED

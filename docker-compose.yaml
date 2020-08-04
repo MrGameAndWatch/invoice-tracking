@@ -9,6 +9,15 @@ services:
     depends_on:
       - invoice-service
 
+  employer-frontend:
+    build:
+      context: employer-frontend
+      dockerfile: Dockerfile
+    ports:
+      - '8082:8080'
+    depends_on:
+      - invoice-service
+
   invoice-service:
     build:
       context: ./invoice-service
